@@ -27,8 +27,8 @@ public class ObjectsScript : MonoBehaviour
     [SerializeField] private GameObject heavyObject;
     [SerializeField] private GameObject lightObject;
 
-    [SerializeField] private Rigidbody heavyRb;
-    [SerializeField] private Rigidbody lightRb;
+    private Rigidbody heavyRb;
+    private Rigidbody lightRb;
 
     void Start()
     {
