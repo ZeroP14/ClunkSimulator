@@ -1,4 +1,4 @@
-There might be some problems which are caused by rigidbody. I'll give you the best example I can. Imagine, you want to create a game where 2 objects (each with rigidbody) needs to move at the high speed.
+There might be some problems which are caused by rigidbody. I'll give you the best example I can. Imagine, you want to create a game where 2 objects (each with a rigidbody) needs to move at the high speed.
 
 First problem, at high speed, these objects can go through walls, we don't what that. 
 It is easy to solve, you need changed `CollisionDetectionMode` in the inspector to `Continuous`.
