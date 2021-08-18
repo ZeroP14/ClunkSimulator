@@ -1,23 +1,61 @@
-When I gave Rigidbody to my objects (light and heavy object) I had a problem.
+There might be some problems which are caused by rigidbody. I'll give you the best example I can. Imagine, you want to create a game where 2 objects (each with rigidbody) needs to move at the high speed.
 
-First, at high speed these objects could go through walls, I didn't what that. 
-It was easy to solve, I just changed `CollisionDetectionMode` in the inspector to `Continuous`.
+First problem, at high speed, these objects can go through walls, we don't what that. 
+It is easy to solve, you need changed `CollisionDetectionMode` in the inspector to `Continuous`.
 
-Second, objects still could go through each other. The solution, as the Internet told me, to change `CollisionDetectionMode` to `ContinuousDynamic` for one of my objects. 
+Second problem, objects still can go through each other. The solution, as the documentation says, to change `CollisionDetectionMode` to `ContinuousDynamic` for one of the objects. 
 
 Well, as you might guess it didn't work. One object could go through another one and walls as well, the one with `ContinuousDynamic` mode.
-After some searching and thinking I created the code for that.
-Look, if you'll read the documentation it says: 
+After some searching and thinking we might come up with the code for that.
+Read the documentation for better understanding: 
 >For best results, set this value to CollisionDetectionMode.ContinuousDynamic for fast moving objects, and for other objects which these need to collide with, set it to CollisionDetectionMode.Continuous.
 
-So, the fast moving object should have `Continuous`, and the slow one should have `CollisionDetectionMode`. You know where I'm going, right?
-Here we can create a simple code for that:
+So, the fastest object should have `Continuous`, and the slowest one should have `CollisionDetectionMode`. You know where I'm going, right?
+We can create a simple code for that:
 ``` C#
-//Creating the variables for objects and rigidbodies for them
+using UnityEngine;
 
-//Compare the velocity variables between two objects
+public class ObjectsScript : MonoBehaviour
+{
+    //Creating the variables and rigidbodies for objects
+    
+    [SerializeField] private GameObject heavyObject;
+    [SerializeField] private GameObject lightObject;
 
-//Changing the CollisionDetectionMode
+    [SerializeField] private Rigidbody heavyRb;
+    [SerializeField] private Rigidbody lightRb;
 
-//PS sometimes at the start the object with the velocity could go through another, so I made a default state when the velocities of the objects are the same.
+    void Start()
+    {
+        heavyRb = heavyObject.GetComponent<Rigidbody>();
+        lightRb = lightObject.GetComponent<Rigidbody>();
+    }
+    private void FixedUpdate()
+    {
+        ChangeCollisionMode();
+    }
+
+    private void ChangeCollisionMode()
+    {
+        //Compare the velocity variables between two objects
+        //Changing the CollisionDetectionMode
+        if(lightRb.velocity.x > heavyRb.velocity.x)
+        {
+            lightRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            heavyRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+        else if (lightRb.velocity.x < heavyRb.velocity.x)
+        {
+            lightRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            heavyRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+        else
+        {
+            //Sometimes, at the very start, the object with the velocity can go through another, so I made a default state (this happens when the velocities of the objects are the same as well)
+            //I do not know what causes this problem, but it might be that somehow Unity cannot see the velocity differents
+            lightRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            heavyRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+    }
+}
 ```
