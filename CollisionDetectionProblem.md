@@ -6,6 +6,7 @@ Well, as you might guess it didn't work. One object could go through another one
 After some searching and thinking I created the code for that.
 Look, if you'll read the documentation it says: 
 >For best results, set this value to CollisionDetectionMode.ContinuousDynamic for fast moving objects, and for other objects which these need to collide with, set it to CollisionDetectionMode.Continuous.
+
 So, the fast moving object should have `Continuous`, and the slow one should have `CollisionDetectionMode`. You know where I'm going, right?
 Here we can create a simple code for that:
 ``` C#
