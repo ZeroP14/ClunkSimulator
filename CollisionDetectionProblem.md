@@ -2,6 +2,11 @@ There might be some problems which are caused by rigidbody. I'll give you the be
 
 First problem, at high speed, these objects can go through walls, we don't what that. 
 It is easy to solve, you need to change `CollisionDetectionMode` in the inspector to `Continuous`.
+Here is an image of where you need to make these changes:
+
+
+![Снимок экрана (27)](https://user-images.githubusercontent.com/88005081/129928470-3ccae899-bc4a-4984-8821-2f81bca5c407.png)
+
 
 Second problem, objects still can go through each other. The solution, as the documentation says, to change `CollisionDetectionMode` to `ContinuousDynamic` for one of the objects. 
 
