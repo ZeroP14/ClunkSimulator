@@ -1,7 +1,10 @@
 When I gave Rigidbody to my objects (light and heavy object) I had a problem.
+
 First, at high speed these objects could go through walls, I didn't what that. 
 It was easy to solve, I just changed `CollisionDetectionMode` in the inspector to `Continuous`.
+
 Second, objects still could go through each other. The solution, as the Internet told me, to change `CollisionDetectionMode` to `ContinuousDynamic` for one of my objects. 
+
 Well, as you might guess it didn't work. One object could go through another one and walls as well, the one with `ContinuousDynamic` mode.
 After some searching and thinking I created the code for that.
 Look, if you'll read the documentation it says: 
