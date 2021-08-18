@@ -54,9 +54,10 @@ public class ObjectsScript : MonoBehaviour
             lightRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             heavyRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
-        else
+        else 
         {
-            //Sometimes, at the very start, the object with the velocity can go through another, so I made a default state (this happens when the velocities of the objects are the same as well)
+            //This happens when the velocities of the objects are the same, and at the very start of the game.
+            //Sometimes, at the very start, the object with the velocity can go through another, so I made a default state
             //I do not know what causes this problem, but it might be that somehow Unity cannot see the velocity differents
             lightRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             heavyRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
